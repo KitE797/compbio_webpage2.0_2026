@@ -12,5 +12,12 @@
     "title": "About",
     "section": "",
     "text": "About this site"
+  },
+  {
+    "objectID": "homework1.html",
+    "href": "homework1.html",
+    "title": "homework1",
+    "section": "",
+    "text": "This is Homework 1. It contains some R code.\n\nx=c(1,2,3,4)\n\ny=c(\"a\",\"b\",\"c\",\"d\")\n\nprint(x)\n\n[1] 1 2 3 4\n\nprint(y)\n\n[1] \"a\" \"b\" \"c\" \"d\""
   }
 ]

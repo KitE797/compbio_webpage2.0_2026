@@ -6,8 +6,10 @@ This is Homework 1. It contains some R code.
 
 
 ```{r}
-x=(1,2,3,4)
-y=("a","b","c","d")
+
+x=c(1,2,3,4)
+
+y=c("a","b","c","d")
 
 print(x)
 print(y)
