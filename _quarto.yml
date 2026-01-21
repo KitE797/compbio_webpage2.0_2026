@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "compbio_webpage2.0_2026"
+  title: "Kit Eller's Website (For CompBio!)"
   navbar:
     left:
       - href: index.qmd
