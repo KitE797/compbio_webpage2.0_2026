@@ -1,0 +1,7 @@
+---
+title: "Class Notes 1/22/26"
+---
+
+```{r, echo=TRUE, eval=TRUE}
+
+```
