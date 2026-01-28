@@ -1,0 +1,91 @@
+---
+title: "Homework 4"
+---
+## Homework #4
+### Kit Eller
+### 1/28/26
+
+### 1. Suppose x = 1.1, a = 2.2, and b = 3.3. Assign each expression to the value of the variable z and print the value stored in z.
+```{r, echo=TRUE}
+# Setting up variables:
+x <- 1.1
+a <- 2.2
+b <- 3.3
+
+# Assigning z to each expression
+# 1a:
+z <- x^(a^b)
+print(z)
+
+# 1b:
+z <- (x^a)^b
+print(z)
+
+# 1c:
+z <- ((3*x^3)+(2*x^2)+(1))
+print(z)
+```
+
+### 2. Using the rep and seq functions, create the following vectors:
+```{r, echo=TRUE}
+# 2a:
+# concatenating two seqs
+vec1 <- c(seq(from=1, to=8), seq(from=7, to=1))
+print(vec1)
+
+# 2b:
+# repeating 1 through 5 and using a vector inside of times to repeat numbers
+vec2 <- rep(x=c(1:5), times=c(1:5))
+print(vec2)
+
+# 2c:
+# repeating 5 through 1 and using a vector inside of times to repeat numbers
+vec3 <- rep(x=c(5:1), times=c(1:5))
+print(vec3)
+```
+
+### 3. Create a vector of two random uniform numbers. In a spatial map, these can be interpreted as x and y coordinates that give the location of an individual (such as a marked forest tree in a plot that has been mapped). Using one of R’s inverse trigonometry functions (asin(), acos(), or atan()), convert these numbers into polar coordinates (If you don’t know what polar coordinates are, read about them on the web here, here, or in your calculus textbook).
+
+```{r, echo=TRUE}
+# using runif to generate two random cart coordinates
+cart <- c(runif(1), runif(1))
+print(cart)
+
+# creating r and theta for polar coordinates
+r <- sqrt((cart[1]^2) + (cart[2]^2))
+theta <- atan((cart[1]) / (cart[2]))
+
+# assigning polar coordinates
+pol <- c(r, theta)
+print(pol)
+
+```
+
+
+### 4. Create a vector queue <- c("sheep", "fox", "owl", "ant") where queue represents the animals that are lined up to enter Noah’s Ark, with the sheep at the front of the line. Using R expressions, update queue as:
+
+```{r, echo=TRUE}
+# assigned queue
+queue <- c("sheep", "fox", "owl", "ant")
+queue <- c(queue, "serpent")
+queue <- queue[-1]
+queue <- c("donkey", queue)
+queue <- queue[-5]
+queue <- queue[-3]
+queue <- c(queue[1:2], "aphid", queue[3])
+
+# using which to figure out where aphid is
+which(queue=="aphid")
+```
+
+### 5. Use R to create a vector of all of the integers from 1 to 100 that are not divisible by 2, 3, or 7. You will need one of the arithmetic operators on this cheat sheet.
+```{r, echo=TRUE}
+# assigning ints as a vector of 1 through 100
+ints <- c(1:100)
+
+# using a combo of indexing and which. Basically asking for the index to find number where the remainder of division is not 0 for each number.
+not_div <- ints[which(ints %% 2 != 0 & ints %% 3 != 0 & ints %% 7 != 0)] 
+
+print(not_div)
+
+```
