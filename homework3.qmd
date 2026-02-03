@@ -1,7 +1,7 @@
 ---
-title: "Homework 4"
+title: "Homework 3"
 ---
-## Homework #4
+## Homework #3
 ### Kit Eller
 ### 1/28/26
 
@@ -23,6 +23,7 @@ print(z)
 
 # 1c:
 z <- ((3*x^3)+(2*x^2)+(1))
+
 print(z)
 ```
 

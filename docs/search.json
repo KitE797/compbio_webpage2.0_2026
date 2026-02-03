@@ -1,44 +1,23 @@
 [
   {
+    "objectID": "homework3.html",
+    "href": "homework3.html",
+    "title": "Homework 3",
+    "section": "",
+    "text": "# Setting up variables:\nx &lt;- 1.1\na &lt;- 2.2\nb &lt;- 3.3\n\n# Assigning z to each expression\n# 1a:\nz &lt;- x^(a^b)\nprint(z)\n\n[1] 3.61714\n\n# 1b:\nz &lt;- (x^a)^b\nprint(z)\n\n[1] 1.997611\n\n# 1c:\nz &lt;- ((3*x^3)+(2*x^2)+(1))\n\nprint(z)\n\n[1] 7.413\n\n\n\n\n\n\n# 2a:\n# concatenating two seqs\nvec1 &lt;- c(seq(from=1, to=8), seq(from=7, to=1))\nprint(vec1)\n\n [1] 1 2 3 4 5 6 7 8 7 6 5 4 3 2 1\n\n# 2b:\n# repeating 1 through 5 and using a vector inside of times to repeat numbers\nvec2 &lt;- rep(x=c(1:5), times=c(1:5))\nprint(vec2)\n\n [1] 1 2 2 3 3 3 4 4 4 4 5 5 5 5 5\n\n# 2c:\n# repeating 5 through 1 and using a vector inside of times to repeat numbers\nvec3 &lt;- rep(x=c(5:1), times=c(1:5))\nprint(vec3)\n\n [1] 5 4 4 3 3 3 2 2 2 2 1 1 1 1 1\n\n\n\n\n\n\n# using runif to generate two random cart coordinates\ncart &lt;- c(runif(1), runif(1))\nprint(cart)\n\n[1] 0.9812748 0.9589748\n\n# creating r and theta for polar coordinates\nr &lt;- sqrt((cart[1]^2) + (cart[2]^2))\ntheta &lt;- atan((cart[1]) / (cart[2]))\n\n# assigning polar coordinates\npol &lt;- c(r, theta)\nprint(pol)\n\n[1] 1.372054 0.796891\n\n\n\n\n\n\n# assigned queue\nqueue &lt;- c(\"sheep\", \"fox\", \"owl\", \"ant\")\nqueue &lt;- c(queue, \"serpent\")\nqueue &lt;- queue[-1]\nqueue &lt;- c(\"donkey\", queue)\nqueue &lt;- queue[-5]\nqueue &lt;- queue[-3]\nqueue &lt;- c(queue[1:2], \"aphid\", queue[3])\n\n# using which to figure out where aphid is\nwhich(queue==\"aphid\")\n\n[1] 3\n\n\n\n\n\n\n# assigning ints as a vector of 1 through 100\nints &lt;- c(1:100)\n\n# using a combo of indexing and which. Basically asking for the index to find number where the remainder of division is not 0 for each number.\nnot_div &lt;- ints[which(ints %% 2 != 0 & ints %% 3 != 0 & ints %% 7 != 0)] \n\nprint(not_div)\n\n [1]  1  5 11 13 17 19 23 25 29 31 37 41 43 47 53 55 59 61 65 67 71 73 79 83 85\n[26] 89 95 97"
+  },
+  {
+    "objectID": "homework3.html#homework-3",
+    "href": "homework3.html#homework-3",
+    "title": "Homework 3",
+    "section": "",
+    "text": "# Setting up variables:\nx &lt;- 1.1\na &lt;- 2.2\nb &lt;- 3.3\n\n# Assigning z to each expression\n# 1a:\nz &lt;- x^(a^b)\nprint(z)\n\n[1] 3.61714\n\n# 1b:\nz &lt;- (x^a)^b\nprint(z)\n\n[1] 1.997611\n\n# 1c:\nz &lt;- ((3*x^3)+(2*x^2)+(1))\n\nprint(z)\n\n[1] 7.413\n\n\n\n\n\n\n# 2a:\n# concatenating two seqs\nvec1 &lt;- c(seq(from=1, to=8), seq(from=7, to=1))\nprint(vec1)\n\n [1] 1 2 3 4 5 6 7 8 7 6 5 4 3 2 1\n\n# 2b:\n# repeating 1 through 5 and using a vector inside of times to repeat numbers\nvec2 &lt;- rep(x=c(1:5), times=c(1:5))\nprint(vec2)\n\n [1] 1 2 2 3 3 3 4 4 4 4 5 5 5 5 5\n\n# 2c:\n# repeating 5 through 1 and using a vector inside of times to repeat numbers\nvec3 &lt;- rep(x=c(5:1), times=c(1:5))\nprint(vec3)\n\n [1] 5 4 4 3 3 3 2 2 2 2 1 1 1 1 1\n\n\n\n\n\n\n# using runif to generate two random cart coordinates\ncart &lt;- c(runif(1), runif(1))\nprint(cart)\n\n[1] 0.9812748 0.9589748\n\n# creating r and theta for polar coordinates\nr &lt;- sqrt((cart[1]^2) + (cart[2]^2))\ntheta &lt;- atan((cart[1]) / (cart[2]))\n\n# assigning polar coordinates\npol &lt;- c(r, theta)\nprint(pol)\n\n[1] 1.372054 0.796891\n\n\n\n\n\n\n# assigned queue\nqueue &lt;- c(\"sheep\", \"fox\", \"owl\", \"ant\")\nqueue &lt;- c(queue, \"serpent\")\nqueue &lt;- queue[-1]\nqueue &lt;- c(\"donkey\", queue)\nqueue &lt;- queue[-5]\nqueue &lt;- queue[-3]\nqueue &lt;- c(queue[1:2], \"aphid\", queue[3])\n\n# using which to figure out where aphid is\nwhich(queue==\"aphid\")\n\n[1] 3\n\n\n\n\n\n\n# assigning ints as a vector of 1 through 100\nints &lt;- c(1:100)\n\n# using a combo of indexing and which. Basically asking for the index to find number where the remainder of division is not 0 for each number.\nnot_div &lt;- ints[which(ints %% 2 != 0 & ints %% 3 != 0 & ints %% 7 != 0)] \n\nprint(not_div)\n\n [1]  1  5 11 13 17 19 23 25 29 31 37 41 43 47 53 55 59 61 65 67 71 73 79 83 85\n[26] 89 95 97"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "compbio_webpage2.0_2026",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\nThis is where Homework 1 is: Homework 1\nThis is where Homework 4 is: Homework 4"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site"
-  },
-  {
-    "objectID": "homework1.html",
-    "href": "homework1.html",
-    "title": "homework1",
-    "section": "",
-    "text": "This is Homework 1. It contains some R code.\n\nx=c(1,2,3,4)\n\ny=c(\"a\",\"b\",\"c\",\"d\")\n\nprint(x)\n\n[1] 1 2 3 4\n\nprint(y)\n\n[1] \"a\" \"b\" \"c\" \"d\""
-  },
-  {
-    "objectID": "test.html",
-    "href": "test.html",
-    "title": "test",
-    "section": "",
-    "text": "This is a test ## test"
-  },
-  {
-    "objectID": "homework4.html",
-    "href": "homework4.html",
-    "title": "Homework 4",
-    "section": "",
-    "text": "# Setting up variables:\nx &lt;- 1.1\na &lt;- 2.2\nb &lt;- 3.3\n\n# Assigning z to each expression\n# 1a:\nz &lt;- x^(a^b)\nprint(z)\n\n[1] 3.61714\n\n# 1b:\nz &lt;- (x^a)^b\nprint(z)\n\n[1] 1.997611\n\n# 1c:\nz &lt;- ((3*x^3)+(2*x^2)+(1))\nprint(z)\n\n[1] 7.413\n\n\n\n\n\n\n# 2a:\n# concatenating two seqs\nvec1 &lt;- c(seq(from=1, to=8), seq(from=7, to=1))\nprint(vec1)\n\n [1] 1 2 3 4 5 6 7 8 7 6 5 4 3 2 1\n\n# 2b:\n# repeating 1 through 5 and using a vector inside of times to repeat numbers\nvec2 &lt;- rep(x=c(1:5), times=c(1:5))\nprint(vec2)\n\n [1] 1 2 2 3 3 3 4 4 4 4 5 5 5 5 5\n\n# 2c:\n# repeating 5 through 1 and using a vector inside of times to repeat numbers\nvec3 &lt;- rep(x=c(5:1), times=c(1:5))\nprint(vec3)\n\n [1] 5 4 4 3 3 3 2 2 2 2 1 1 1 1 1\n\n\n\n\n\n\n# using runif to generate two random cart coordinates\ncart &lt;- c(runif(1), runif(1))\nprint(cart)\n\n[1] 0.1173845 0.2225508\n\n# creating r and theta for polar coordinates\nr &lt;- sqrt((cart[1]^2) + (cart[2]^2))\ntheta &lt;- atan((cart[1]) / (cart[2]))\n\n# assigning polar coordinates\npol &lt;- c(r, theta)\nprint(pol)\n\n[1] 0.2516108 0.4853661\n\n\n\n\n\n\n# assigned queue\nqueue &lt;- c(\"sheep\", \"fox\", \"owl\", \"ant\")\nqueue &lt;- c(queue, \"serpent\")\nqueue &lt;- queue[-1]\nqueue &lt;- c(\"donkey\", queue)\nqueue &lt;- queue[-5]\nqueue &lt;- queue[-3]\nqueue &lt;- c(queue[1:2], \"aphid\", queue[3])\n\n# using which to figure out where aphid is\nwhich(queue==\"aphid\")\n\n[1] 3\n\n\n\n\n\n\n# assigning ints as a vector of 1 through 100\nints &lt;- c(1:100)\n\n# using a combo of indexing and which. Basically asking for the index to find number where the remainder of division is not 0 for each number.\nnot_div &lt;- ints[which(ints %% 2 != 0 & ints %% 3 != 0 & ints %% 7 != 0)] \n\nprint(not_div)\n\n [1]  1  5 11 13 17 19 23 25 29 31 37 41 43 47 53 55 59 61 65 67 71 73 79 83 85\n[26] 89 95 97"
-  },
-  {
-    "objectID": "homework4.html#homework-4",
-    "href": "homework4.html#homework-4",
-    "title": "Homework 4",
-    "section": "",
-    "text": "# Setting up variables:\nx &lt;- 1.1\na &lt;- 2.2\nb &lt;- 3.3\n\n# Assigning z to each expression\n# 1a:\nz &lt;- x^(a^b)\nprint(z)\n\n[1] 3.61714\n\n# 1b:\nz &lt;- (x^a)^b\nprint(z)\n\n[1] 1.997611\n\n# 1c:\nz &lt;- ((3*x^3)+(2*x^2)+(1))\nprint(z)\n\n[1] 7.413\n\n\n\n\n\n\n# 2a:\n# concatenating two seqs\nvec1 &lt;- c(seq(from=1, to=8), seq(from=7, to=1))\nprint(vec1)\n\n [1] 1 2 3 4 5 6 7 8 7 6 5 4 3 2 1\n\n# 2b:\n# repeating 1 through 5 and using a vector inside of times to repeat numbers\nvec2 &lt;- rep(x=c(1:5), times=c(1:5))\nprint(vec2)\n\n [1] 1 2 2 3 3 3 4 4 4 4 5 5 5 5 5\n\n# 2c:\n# repeating 5 through 1 and using a vector inside of times to repeat numbers\nvec3 &lt;- rep(x=c(5:1), times=c(1:5))\nprint(vec3)\n\n [1] 5 4 4 3 3 3 2 2 2 2 1 1 1 1 1\n\n\n\n\n\n\n# using runif to generate two random cart coordinates\ncart &lt;- c(runif(1), runif(1))\nprint(cart)\n\n[1] 0.1173845 0.2225508\n\n# creating r and theta for polar coordinates\nr &lt;- sqrt((cart[1]^2) + (cart[2]^2))\ntheta &lt;- atan((cart[1]) / (cart[2]))\n\n# assigning polar coordinates\npol &lt;- c(r, theta)\nprint(pol)\n\n[1] 0.2516108 0.4853661\n\n\n\n\n\n\n# assigned queue\nqueue &lt;- c(\"sheep\", \"fox\", \"owl\", \"ant\")\nqueue &lt;- c(queue, \"serpent\")\nqueue &lt;- queue[-1]\nqueue &lt;- c(\"donkey\", queue)\nqueue &lt;- queue[-5]\nqueue &lt;- queue[-3]\nqueue &lt;- c(queue[1:2], \"aphid\", queue[3])\n\n# using which to figure out where aphid is\nwhich(queue==\"aphid\")\n\n[1] 3\n\n\n\n\n\n\n# assigning ints as a vector of 1 through 100\nints &lt;- c(1:100)\n\n# using a combo of indexing and which. Basically asking for the index to find number where the remainder of division is not 0 for each number.\nnot_div &lt;- ints[which(ints %% 2 != 0 & ints %% 3 != 0 & ints %% 7 != 0)] \n\nprint(not_div)\n\n [1]  1  5 11 13 17 19 23 25 29 31 37 41 43 47 53 55 59 61 65 67 71 73 79 83 85\n[26] 89 95 97"
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\nThis is where Homework 1 is: Homework 1\nThis is where Homework 4 is: Homework 3"
   }
 ]
