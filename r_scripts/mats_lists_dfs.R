@@ -174,3 +174,21 @@ print(m)
 m[1:2, 3:4]
 m[c("Species_A", "Species_B"), c("Site_3", "Site_4")]
 
+# using logicals for subsetting
+colSums(m)[colSums(m) >= 15]
+
+####################################################################
+# data curation
+# always add some basic metadata when possible to your data files.
+
+data <- read.table(file = "data/ExcelDataTemplate.csv", header=TRUE, sep=",", comment.char="#")
+
+####################################################################
+# saving r objects
+
+z_df
+
+saveRDS(z_df, file="data/zData.RDS")
+
+unfrozen_Z <- readRDS("data/zData.RDS")
+
