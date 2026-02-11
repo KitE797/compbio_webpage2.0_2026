@@ -1,0 +1,74 @@
+---
+title: "Homework 5"
+---
+## Homework #5
+### Kit Eller
+### 2/11/26
+
+1. Create a funtion that takes the parameters required to run a logistic growth model and returns a dataframe with columns for population size and time.
+
+```{r}
+
+# These were testing variables for my own purposes
+# N0=2
+# r=0.5
+# K=30
+# t_fin=50
+# t_step=3
+
+### Creating function 'log_growth': Start function
+log_growth <- function(N0=5, r=0.1, K=100, t_fin=100, t_step=5){
+    # log_growth takes N0 (initial pop size), r (growth rate), K (carrying capacity), t_fin (the final time), and t_step (the number by which t increases)
+
+    # times: sequences from 0 to t_fin in steps of t_step
+    times <- seq(from = 0, to = t_fin, by = t_step)
+    
+    # pop_df: creates a df with column time (=times) and population size.
+    pop_df <- data.frame(t = times, N = NA)
+
+    # for loop: finds the length of times, then for every integer, finds t at location i of pop_df. Then, it runs the log growth equation for that number. N (output of equation) is then placed into N at location i of pop_df.
+    for(i in 1:length(times)){
+
+        t <- pop_df$t[i]
+
+        N <- ( K ) / ( 1 + ( ( K - N0 ) / N0 ) * ( exp(-r * t)) )
+
+        pop_df$N[i] <- N
+    }
+
+    # actually return the dataframe
+    return(pop_df)
+
+}
+
+# testing
+logdf_real <- log_growth()
+
+```
+
+
+2. Create a second function that takes the above dataframe as its input and creates a plot of population size over time as a side effect.
+
+```{r}
+# load tidyverse
+library(tidyverse)
+
+# create function for plot growth. Needs a df that has t (time) and N (pop size) columns. Default is above dataframe.
+plot_growth <- function(log_df = logdf_real){
+
+    plot <- ggplot(
+        data = log_df,
+        mapping = aes(
+            x = t,
+            y = N
+        )
+    ) + geom_point() + geom_line() + xlab("Time") + ylab("Population Size")
+
+    return(plot)
+
+}
+
+# callimg function
+plot_growth()
+
+```
