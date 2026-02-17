@@ -152,3 +152,156 @@ growthDF <- data.frame(r_vec, container_vec)
 head(growthDF)
 
 plot(growthDF$r_vec, growthDF$container_vec)
+
+################################################
+### For loops cont
+### 2/17/26
+
+# Name: rand_walk
+# Purpose: conducts a random walk
+# Input:
+#     times = number of time steps
+#     n1 = initial pop size
+#     lamda = finite rate of increase
+#     noise_sd = 10
+# Output: vector n with population size > 0 until extinct.
+
+library(ggplot2)
+
+rand_walk <- function(times = 100, n1 = 50, lambda = 1, noise_sd = 10){
+  n <- rep(NA, times) # create output vector
+  n[1] <- n1 # initialize pop size
+  noise <- rnorm(n = times, mean = 0, sd = noise_sd) # created noise / error
+
+  for(i in 1:(times-1)){
+    n[i+1] <- lambda * n[i] + noise[i]
+    if(n[i+1] <= 0){
+      n[i+1] <- NA
+      cat("Population extinction at time ", i+1, "\n")
+      break
+    }
+  }
+
+  return(n)
+
+}
+
+
+rand_walk(times = 300, n1 = 200, lambda = 1, noise_sd = 10)
+
+x <- rand_walk()
+
+# plotting with default values (noisy)
+qplot(x = 1:100, y = rand_walk(), geom="line")
+
+# plotting with no noise
+qplot(x = 1:100, y = rand_walk(noise_sd = 0), geom="line")
+
+# no noise and adjust lambda
+qplot(x = 1:100, y = rand_walk(noise_sd = 0, lambda = 0.9), geom="line")
+
+# add some stoichasticty back, make lambda >1
+qplot(x = 1:100, y = rand_walk(noise_sd = 7, lambda = 1.03), geom="line")
+
+
+
+
+##############
+for(i in 1:5){
+  for(j in 1:5){
+    for(k in 1:5){
+      print(i, ", ", j, ", ", k, "\n")
+    }
+  }
+}
+
+
+############################
+# 2D parameter sweep for log growth function
+
+r_vals <- seq(0, 1, length.out = 100)
+k_vals <- seq(10, 1000, length.out = 100)
+
+storage_matrix <- matrix(NA, nrow = length(r_vals), ncol = length(k_vals))
+
+for(i in seq_along(r_vals)){
+  for(j in seq_along(k_vals)){
+    # run log growth
+    temp_df <- log_growth(r = r_vals[i], K = k_vals[j])
+
+    # storage max N in 2D matrix
+    storage_matrix[i,j] <- max(temp_df$N)
+  }
+}
+
+log_growth(r = r_vals[i], k = k_vals[j])
+
+
+###########
+### Create function off above:
+
+r_vals <- seq(0, 1, length.out = 100)
+k_vals <- seq(10, 1000, length.out = 100)
+
+growth_sweep_mat <- function(r_vec, k_vec){
+  storage <- matrix(NA, nrow=length(r_vec), ncol=length(k_vec))
+
+  for(i in seq_along(r_vec)){
+    for(j in seq_along(k_vec)){
+      # run log growth
+      temp_df <- log_growth(r = r_vec[i], K = k_vec[j])
+
+      # storage max N in 2D matrix
+      storage[i,j] <- max(temp_df$N)
+  }
+}
+  return(storage)
+
+}
+
+growth_mat <- growth_sweep-mat(r_vec = r_vals, k_vec = k_vals)
+
+
+
+growth_sweep_df <- function(r_vec, k_vec){
+  # create storage dataframe
+  df_l <- length(r_vec)*length(k_vec)
+
+  r_out <- rep(NA, df_l)
+  k_out <- rep(NA, df_l)
+  maxn_out <- rep(NA, df_l)
+
+  storage_df <- data.frame(r_out, k_out, maxn_out)
+
+  # storage <- matrix(NA, nrow=length(r_vec), ncol=length(k_vec))
+
+  # row indexing:
+  counter <- 1
+
+  for(i in seq_along(r_vec)){
+    for(j in seq_along(k_vec)){
+      # run log growth
+      temp_df <- log_growth(r = r_vec[i], K = k_vec[j])
+
+      # storage max N in 2D matrix
+      # storage[i,j] <- max(temp_df$N)
+      storage_df$maxn_out[counter] <- max(temp_df$N)
+      storage_df$r_out[counter] <- r_vec[i]
+      storage_df$k_out[counter] <- k_vec[j]
+      counter <- counter + 1
+  }
+}
+  return(storage_df)
+
+}
+
+
+growth_df <- growth_sweep_df(r_vals, k_vals)
+
+ggplot(growth_df, aes(x = r_out, y = k_out, fill = maxn_out)) + geom_tile()
+
+
+
+
+
+
