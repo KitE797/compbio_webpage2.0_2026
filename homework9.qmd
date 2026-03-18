@@ -1,0 +1,88 @@
+---
+title: "Homework 9"
+---
+## Homework #9
+### Kit Eller
+### 3/18/26
+---
+
+Using the pokemon dataset:
+```{python, python.reticulate=FALSE}
+import kagglehub
+
+path = kagglehub.dataset_download("maca11/all-pokemon-dataset")
+
+print("Path to dataset files:", path)
+
+
+```
+
+```{r}
+
+library(tidyverse)
+
+pokemon <- read.csv("All_Pokemon.csv")
+
+head(pokemon)
+
+```
+
+Question 1: Continuous (x), Continuous (y)
+```{r}
+
+contX_contY <- ggplot(
+    data = pokemon,
+    mapping = aes(
+        x = HP,
+        y = Height
+    )
+) + geom_point() + geom_smooth(method="lm")
+
+print(contX_contY)
+
+```
+
+Question 2: Discrete (x), Continuous (y)
+```{r}
+discX_contY <- ggplot(
+    data = pokemon,
+    mapping = aes(
+        x = Type.1,
+        y = HP
+    )
+) + geom_boxplot() + geom_jitter()
+
+print(discX_contY)
+```
+
+Question 3: Continuous (x), Discrete (y)
+```{r}
+contX_discY <- ggplot(
+    data = pokemon,
+    mapping = aes(
+        x = HP,
+        y = Legendary
+    )
+) + geom_point() + geom_smooth(method = "glm", method.args = list(family = "binomial"))
+
+print(contX_discY)
+
+```
+
+Question 4: Discrete (x), Discrete (y)
+```{r}
+
+discX_discY <- ggplot(
+    data = pokemon,
+    mapping = aes(
+        x = Type.1
+            )
+) + geom_bar(
+    mapping = aes(
+        fill = Type.2
+    )
+)
+
+print(discX_discY)
+
+```

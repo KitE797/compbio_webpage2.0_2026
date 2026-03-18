@@ -12,3 +12,4 @@ install.packages("devtools")
 devtools::install_github("wilkelab/cowplot")
 devtools::install_github("clauswilke/colorblindr")
 
+greys1 <- c("grey20", "grey50", "grey80")

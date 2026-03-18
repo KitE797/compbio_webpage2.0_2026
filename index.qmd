@@ -18,3 +18,7 @@ Homework 5: [Homework 5](homework5.html)
 Homework 6: [Homework 6](homework6.html)
 
 Homework 7: [Homework 7](homework7.html)
+
+Homework 8: [Homework 8](homework8.html)
+
+Homework 9: [Homework 9](homework9.html)
