@@ -186,3 +186,172 @@ random.choice(arr1) # random number from arr1
 random.choice(arr1, size = (3,3))
 
 random.choice([0,1], p = [0.01, 0.99], size = 1000)
+
+
+
+############################################################
+### Class 3/24/26
+
+x = random.normal(loc = 5, scale = 3, size = 20)
+
+plt.hist(x)
+plt.show()
+
+
+
+x=random.binomial(n = 10, p = 0.5, size = 300)
+print(x)
+
+plt.hist(x)
+
+w=random.uniform(low = 1, high = 10, size = 50)
+plt.hist(w)
+plt.show()
+
+
+
+###############################
+a = 6
+
+if a > 5:
+    print("a is greater than or equal to 5")
+else:
+    if a == 5:
+        print("a is exactly 5")
+    else:
+        print("a is lesser than 5")
+
+
+a = 3
+b = 3
+operation = "add"
+
+if operation == "mult":
+    y = a*b
+elif operation == "div":
+    y = a/b
+elif operation == "add":
+    y = a+b
+elif operation == "sub":
+    y = a-b
+else:
+    y = "I don't know that operation (try mult, div, add, sub)"
+
+
+
+print(y)
+
+
+
+
+
+
+
+
+###############################
+### Loops:
+
+l=[10,20,30]
+
+for i in range(3):
+    print(l[i])
+
+
+
+
+# loop on an object directly
+x = ["blue", "green", "red"]
+
+for i in x:
+    print(i)
+
+arr1 = np.array([0,1,2,3,4,5,6,7,8,9])
+
+rnd=random.uniform(low = 1, high = 5, size = 10)
+
+outList = []
+
+for i in range(len(arr1)):
+    outList.append(rnd[i] + arr1[i])
+
+
+# nested loop with elif
+
+rnd2D = random.uniform(low = 0, high = 1, size = (3,3))
+
+matOut = np.empty(shape = (3,3))
+
+shp = rnd2D.shape
+
+for i in range(shp[0]):
+    for j in range(shp[1]):
+        if rnd2D[i,j] >= 0.5:
+            matOut[i,j] = rnd2D[i,j] * 10
+        else:
+            matOut[i,j] = rnd2D[i,j] / 10
+
+
+
+
+
+############################################
+# PANDAS DFs
+
+dates = pd.date_range("20130101", periods = 6)
+
+df = pd.DataFrame(np.random.randn(6,4), index = dates, columns = list("ABCD"))
+
+df.head(4)
+df.tail(4)
+
+df.index
+df.columns
+
+df.describe
+
+df.to_numpy() # numpy conversion
+
+df["A"]
+df.loc[:, ]
+
+
+
+#############
+# read in csv
+
+ds = pd.read_csv("iris.data.csv")
+
+print(ds)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##################################################################
+### FUNCTIONS in PYTHON
+
+# basic function structure
+
+def number_adder(a, b):
+    out = a + b
+    return(out)
+
+number_adder(a = 3, b = 10)
+
+##################################################################
+### Plotting in python
+
+import seaborn as sns
+
+sns.set_theme(style = "ticks", font_scale = 1.5)
+
+
