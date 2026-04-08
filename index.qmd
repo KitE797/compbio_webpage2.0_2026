@@ -23,4 +23,8 @@ Homework 8: [Homework 8](homework8.html)
 
 Homework 9: [Homework 9](homework9.html)
 
-Homewor 11: [Homework 11](https://kite797.github.io/CA_SIR_6100/)
+Homework 10: [Homework 10](homework10.html)
+
+Homework 11: [Homework 11](homework11.html)
+
+Homework 12: [Homework 12](homework12.html)

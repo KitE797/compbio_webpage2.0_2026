@@ -10,9 +10,9 @@ title: "Homework 9"
 
 
 ```{python}
-
 import numpy as np
 import pandas as pd
+from typing import Concatenate
 import matplotlib.pyplot as plt
 
 
@@ -57,7 +57,7 @@ dict_1.pop("booleans")
 
 3 Create a numpy array of length 100 with values bound between 0 and 1 and save as arr1.
 ```{python}
- from numpy import random
+from numpy import random
 
 arr1 = random.rand(100)
 
@@ -69,7 +69,12 @@ arr1 = arr1.astype(float)
 
 arr2D = arr1.reshape(10,10)
 
-arr_bin = 
+arr_bin = random.choice(
+    a = (0,1),
+    size = (10,10),
+    p = (0.8, 0.2)
+)
 
+cube = np.concatenate((arr2D, arr_bin), axis = 0)
 
 ```
