@@ -1,0 +1,26 @@
+---
+title: "homework 13"
+---
+
+Using a dataset of your choice, ask two separate questions about the data and construct an appropriate model and figure to test and visualize each one.
+
+I will be using the pokemon dataset.
+
+### Load libraries:
+```{r}
+
+library(tidyverse)
+
+```
+
+### Load in Dataset:
+```{r}
+
+pokemon_data <- read.csv("All_Pokemon.csv")
+
+```
+
+
+```{r}
+
+```

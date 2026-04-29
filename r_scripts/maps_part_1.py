@@ -114,3 +114,92 @@ fig = px.choropleth_map(
     title="US county unemployment"
 )
 fig.show()
+
+
+######################################
+### Class 4/9/26
+
+import json
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+
+
+eq = pd.read_csv(
+    "https://raw.githubusercontent.com/plotly/datasets/master/earthquakes-23k.csv"
+)
+eq.head()
+
+fig = px.density_map(
+    eq,
+    lat = "Latitude",
+    lon = "Longitude",
+    z = "Magnitude",
+    radius = 5,
+    zoom = 0,
+    center = {"lat": 0, "lon": 180},
+    map_style = "open-street-map",
+    title = "Global Earthquake Density"
+)
+
+fig.update_traces(
+    opacity = 0.5
+)
+fig.show()
+
+
+pacific = eq.query("Latitude > -60 and Latitude < 60 and Longitude > 100")
+
+fig2 = px.density_map(
+    pacific,
+    lat = "Latitude",
+    lon = "Longitude",
+    z = "Magnitude",
+    radius = 5,
+    zoom = 0,
+    center = {"lat": 0, "lon": 180},
+    map_style = "open-street-map",
+    title = "Global Earthquake Density"
+)
+
+fig2.show()
+
+gap = px.data.gapminder().query("year==2007")
+
+
+
+
+df = px.data.gapminder()
+
+fig = px.scatter_geo(
+    df,
+    locations = "iso_alpha",
+    color = "continent",
+    hover_name = "country",
+    size = "pop",
+    animation_frame = "year",
+    projection = "lagrange"
+)
+
+fig.show()
+
+
+
+
+
+from dash import Dash, dcc, html
+
+app = Dash()
+
+app.layout = html.Div([
+    dcc.Graph(
+        figure = fig
+    )
+])
+
+
+
+app.run(
+    debug = True,
+    use_reloader = False
+)

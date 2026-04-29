@@ -3,3 +3,9 @@ title: "homework 11"
 ---
 
 Homework 11 here: https://kite797.github.io/CA_SIR_6100/
+
+
+Image of SIR model graph here:
+
+
+![screenshot of SIR model](Screenshot 2026-04-29 140612.png)
