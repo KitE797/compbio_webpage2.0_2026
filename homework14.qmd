@@ -1,0 +1,161 @@
+---
+title: "homework 14"
+---
+
+## Using a dataset of your choice, create a random forest model and a PCA to answer some questions about the data.
+
+### load in libraries:
+```{r}
+
+library(tidyverse)
+library(ggplot2)
+library(psych)        # Bartlett's test
+library(randomForest) # Random forest
+
+```
+
+### load in dataset:
+```{r}
+# loading in the pokemon dataset:
+
+pokemon <- read.csv("All_Pokemon.csv")
+head(pokemon)
+
+```
+
+### creating PCA:
+```{r}
+
+pokemon_filt <- pokemon |> filter(
+    BMI < 1000
+)
+
+pokemon_num <- pokemon_filt |> select(
+    where(is.numeric)
+)
+
+pokemon_num_cor <- cor(pokemon_num)
+
+# Is the PCA worth it? (Bartlett's test)
+cortest.bartlett(pokemon_num_cor, n = nrow(pokemon_num))
+
+# fitting PCA
+
+pca <- prcomp(pokemon_num, center = TRUE, scale. = TRUE)
+summary(pca)
+
+# variance explained
+
+eig <- pca$sdev^2
+pve <- eig / sum(eig)
+
+pca_var_table <- data.frame(
+  PC = paste0("PC", 1:length(eig)),
+  Eigenvalue = round(eig, 3),
+  PVE = round(pve, 3),
+  CumPVE = round(cumsum(pve), 3)
+)
+pca_var_table
+
+# scree plot
+
+plot(eig, type = "b", pch = 39,
+     xlab = "Principal component",
+     ylab = "Eigenvalue",
+     main = "Scree plot (Pokemon PCA)")
+
+
+broken_stick <- function(p) sapply(1:p, function(k) sum(1/(k:p)) / p)
+bs <- broken_stick(ncol(pokemon_num))
+
+retain <- data.frame(
+  PC = paste0("PC", 1:length(pve)),
+  ObservedPVE = round(pve, 3),
+  BrokenStick = round(bs, 3),
+  Keep = pve > bs
+)
+retain
+
+### according to the retain / broken stick test, 2 PCs (PC1 and PC2) should be retained. They explain 0.192 and 0.097 of the variance.
+
+scores <- as.data.frame(pca$x)
+scores$type1 <- pokemon_filt$Type.1
+scores$bmi <- pokemon_filt$BMI
+scores$exp_type <- pokemon_filt$Experience.type
+scores$type2 <- pokemon_filt$Type.2
+scores$generation <- pokemon_filt$Generation
+scores$exp_100 <- pokemon_filt$Experience.to.level.100
+
+scores$final_evolve <- pokemon_filt$Final.Evolution
+scores$legendary <- pokemon_filt$Legendary
+scores$mega <- pokemon_filt$Mega.Evolution
+scores$final_mega_legend <- pokemon_filt$Mega.Evolution + pokemon_filt$Legendary + pokemon_filt$Final.Evolution
+
+plt <- ggplot(scores, aes(PC1, PC2, color = as.factor(final_mega_legend))) +
+  geom_point(size = 2.6, alpha = 0.85) +
+  theme_minimal() +
+  labs(title = "PCA on Pokemon")
+
+plt + stat_ellipse() # 95% CI
+
+### When I colored by just final_evolve, legendary, or mega, I got good separation on PC1. I then decided to look at all three of these groups combined, which gives separation on PC1 in four groups.
+
+man1 <- manova(cbind(PC1, PC2) ~ final_mega_legend, data = scores)
+man2 <- manova(cbind(PC1, PC2) ~ final_evolve, data = scores)
+man3 <- manova(cbind(PC1, PC2) ~ legendary, data = scores)
+man4 <- manova(cbind(PC1, PC2) ~ mega, data = scores)
+
+summary(man1, test = "Pillai")
+summary(man2, test = "Pillai")
+summary(man3, test = "Pillai")
+summary(man4, test = "Pillai")
+
+# All of these groups are significant.
+
+pc12rot <- abs(pca$rotation[,1:2]) |> as.data.frame() 
+colnames(pc12rot)[1] <- "PC1"
+colnames(pc12rot)[2] <- "PC2"
+
+pc12rot |> arrange(desc(PC1)) |> head()
+# BST and Mean contribute the most to PC1
+
+pc12rot |> arrange(desc(PC2)) |> head()
+# Against.Ground, Against.Poison, and Against.Flying contribute the most to PC2
+
+```
+
+
+### creating random forest:
+```{r}
+
+# train / test split
+id_train <- sample(seq_len(nrow(pokemon_filt)), size = 0.7 * nrow(pokemon_filt))
+train <- pokemon_filt[id_train, ]
+test  <- pokemon_filt[-id_train, ]
+
+# fit a random forest classifier to predict Type 1
+
+rf <- randomForest(
+  as.factor(Type.1) ~ .,
+  data = train,
+  ntree = 3000,
+  mtry = 2,
+  importance = TRUE
+)
+rf
+
+pred <- predict(rf, newdata = test)
+conf <- table(Observed = test$Type.1, Predicted = pred)
+conf
+
+# OOB = 8.6%
+# Based on my confusion matrix, the model was pretty good at classifying different types for the most part. Almost all columns had at least 1 misclassification. It did seem to have a hard time predicting ice, flying, and dragon types, most likely because there are low counts of these types.
+
+varImpPlot(rf)
+
+# The variables that held the most importance in mean decrease accuracy were Against.Ghost, Against.Grass, and Against.Fire, while the variaables that held the most importance in mean decrease Gini were Against.Fire, Against.Ghost, and Against.Grass.
+```
+
+### Summary:
+
+The two models disagreed on variable importance. It was very interesting with how I had to sort of search each individual variable to discover the structure of the data with PCA, while random forest seemed to be able to run on its own to make predictions.

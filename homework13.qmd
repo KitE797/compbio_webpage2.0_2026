@@ -4,23 +4,97 @@ title: "homework 13"
 
 Using a dataset of your choice, ask two separate questions about the data and construct an appropriate model and figure to test and visualize each one.
 
-I will be using the pokemon dataset.
+Using the starwars dataset:
 
 ### Load libraries:
 ```{r}
 
 library(tidyverse)
+library(lubridate)
+library(lme4)
+library(car)
 
 ```
 
 ### Load in Dataset:
 ```{r}
+sw <- starwars
+```
 
-pokemon_data <- read.csv("All_Pokemon.csv")
+## Question 1: Can you predict height based off of sex and mass, while accounting for species?
+
+### Creating the model:
+```{r}
+# loading in starwars dataset, filtering out an outlier (Jabba the Hutt)
+cleanstar <- starwars |>
+  filter(mass<1000)
+
+# creating model for height as a factor of sex and mass, accounting for species
+star_gamma <- lmer(
+  height ~  sex * mass + (1 | species),
+  data = cleanstar)
+anovagamma <- Anova(star_gamma)
+anovagamma
+# This analysis included a non-Gaussian mixed model with random effects
+```
+
+### Plotting:
+```{r}
+height_mass_sex_spp <- ggplot(data = cleanstar) +
+  aes(x = height, y = mass) +
+  #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  geom_point(mapping = aes(
+    color = factor(species),
+    shape = sex
+  )) + geom_smooth()
+
+height_mass_sex_spp
 
 ```
 
+### Explanation:
 
+In this model, I used sex and mass to predict the height of individuals, while accounting for a random effect variable of species. I used species to  While mass was a significant predictor (<2e-16), sex was not. I believe that sex is not significant due specifically because I accounted for species, because there are many more males in the starwars dataset, and so not all species have both females and males in them. 
+
+
+## Question 2: Does gender (feminine or not feminine) predict height in starwars?
+
+### Creating model:
+```{r}
+# adding a column to create a binary for if an individual is or isn't feminine
+cleanstar <- cleanstar |> mutate(
+    gender_tf = gender == "feminine"
+) |> na.omit()
+
+# cat y, cont x
+
+star_cat_cont <- glm(
+  gender_tf ~ height,
+  data = cleanstar,
+  family = binomial(link="logit")
+)
+Anova(star_cat_cont)
+
+```
+
+### Plotting model:
 ```{r}
 
+star_cat_cont_plot <- ggplot(
+    data = cleanstar,
+    mapping = aes(
+        x = gender_tf,
+        y = mass
+    )
+) + geom_point() + geom_smooth(
+    method = "glm",
+    method.args = list(family = "binomial")
+)
+
+star_cat_cont_plot
+
 ```
+
+### Explanation: 
+
+In this model, I used if a character was or wasn't feminine to predict height. Because this was a categorical Y x continuous X plot, I used a binomial GLM model. In this model, this metric of gender was not a significant predictor of height (=0.2565). 
